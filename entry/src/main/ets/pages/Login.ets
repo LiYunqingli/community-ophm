@@ -61,10 +61,39 @@ struct Login {
       }
       .margin({top:20})
 
-      // 其他登录方式
+      // 其他登录方式 -- 水平线
+      Row() {
+        Divider()
+          .color('#ffd2d2d2')
+          .margin({ right: 10 })
+          .width("30%")
 
+        Text("其他登录方式")
+          .fontSize(13)
+          .fontColor("#ff8f8f8f")
+          .padding(5)
+          .backgroundColor("#fff")
+
+        Divider()
+          .color('#ffd2d2d2')
+          .margin({ left: 10 })
+          .width("30%")
+      }
+      .width("80%")
+      .margin({ top: 40 })
+      .justifyContent(FlexAlign.Center)
+
+      // 其他登录方式图标
+      Row(){
+        Icon()
+          .width(80)
+        Icon({iconUrl:"app.media.AliPay",str:"支付宝登录"})
+          .width(80)
+      }
+      .width("56%")
+      .justifyContent(FlexAlign.SpaceBetween)
+      .margin({top:20})
     }
-
     // .backgroundColor(Color.Red)
     .width("100%")
     .height("100%")
@@ -93,6 +122,23 @@ struct Input {
     }
     .width("85%")
     .padding({ left: 5, right: 10, top: 5, bottom: 5 })
-    .border({ width: { bottom: 1 }, style: BorderStyle.Solid, color:Color.Gray })
+    .border({ width: { bottom: 1 }, style: BorderStyle.Solid, color:"#ffd2d2d2" })
+  }
+}
+
+// 登录方式图标
+@Component
+struct Icon {
+  iconUrl:string = "app.media.WeChatPay";
+  str:string = "微信登录"
+  build() {
+    Column(){
+      Image($r(this.iconUrl))
+        .width("40%")
+      Text(this.str)
+        .fontColor("#666666")
+        .margin({top:10})
+    }
+    .width("100%")
   }
 }

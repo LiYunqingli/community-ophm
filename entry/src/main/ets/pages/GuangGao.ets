@@ -5,7 +5,7 @@ import router from '@ohos.router';
 @Component
 struct GuangGao {
   @State djs:number = 5;
-  @State develop:boolean = true;
+  @State develop:boolean = false;
   aboutToAppear(): void {
     if (this.develop){
       this.djs = 0;
