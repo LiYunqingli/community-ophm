@@ -1,8 +1,10 @@
+import { prompt } from '@kit.ArkUI';
+
 @Entry
 @Component
 struct Login {
   @State phoneNumber:string = "13392692575";
-  @State password:string = "Aa123456";
+  @State password:string = "fdsafdsa";
   build() {
     Column(){
       Text("欢迎登录")
@@ -55,7 +57,14 @@ struct Login {
         .padding(13)
         .margin({top:30})
         .onClick(() => {
+          if (this.phoneNumber && this.password) {
 
+          }else {
+            prompt.showToast({
+              message:"手机号密码不得为空",
+              duration:3000
+            })
+          }
         })
 
       // 用户协议和隐私政策
