@@ -1,7 +1,26 @@
+import '@ohos.router';
+import router from '@ohos.router';
+
 @Entry
 @Component
 struct GuangGao {
   @State djs:number = 5;
+  @State develop:boolean = true;
+  aboutToAppear(): void {
+    if (this.develop){
+      this.djs = 0;
+    }
+
+    let a = setInterval(() => {
+      this.djs = this.djs - 1;
+      if (this.djs <= 0) {
+        clearInterval(a);
+        router.replaceUrl({
+          url:"pages/Login"
+        })
+      }
+    },1000)
+  }
 
   build() {
     Column(){
@@ -12,16 +31,23 @@ struct GuangGao {
           Button("跳过")
             .backgroundColor("#fff")
             .fontColor(Color.Black)
-            .padding(0)
+            .padding({
+              top:0,bottom:0,left:10,right:10
+            })
             .margin(0)
             .fontSize(15)
+            .onClick(() => {
+              router.replaceUrl({
+                url:"pages/Login"
+              })
+            })
         }
         .padding({
           left:20,right:20,top:0,bottom:0
         })
         .margin({
           top:15,
-          right:10
+          right:0
         })
       }
 
