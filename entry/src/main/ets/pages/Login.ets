@@ -1,6 +1,8 @@
 @Entry
 @Component
 struct Login {
+  @State phoneNumber:string = "13392692575";
+  @State password:string = "Aa123456";
   build() {
     Column(){
       Text("欢迎登录")
@@ -15,16 +17,25 @@ struct Login {
       Input({
         icon: $r("app.media.phone"),
         inputType:InputType.PhoneNumber,
-        inputStr:"请输入手机号"
+        inputStr:"请输入手机号",
+        value:this.phoneNumber,
+        onChange:(value) => {
+          this.phoneNumber = value;
+        }
       })
         .margin({ top: 50 })
 
       Input({
         icon: $r("app.media.password"),
         inputType:InputType.Password,
-        inputStr:"请输入密码"
+        inputStr:"请输入密码",
+        value:this.password,
+        onChange:(value) => {
+          this.password = value
+        }
       })
         .margin({ top: 20 })
+
 
       Row(){
         Text("快速注册")
@@ -43,6 +54,9 @@ struct Login {
         .width("85%")
         .padding(13)
         .margin({top:30})
+        .onClick(() => {
+
+        })
 
       // 用户协议和隐私政策
       Row(){
@@ -106,6 +120,9 @@ struct Input {
   inputType: InputType = InputType.Normal;
   inputStr: string = "请输入该项内容";
   icon?: Resource;
+  @Prop value: string = "";
+  onChange? : (value:string) => void;
+
 
   build() {
     Row() {
@@ -115,10 +132,16 @@ struct Input {
           .height(22)
           .margin({ right: 5 })
       }
-      TextInput({ placeholder: this.inputStr })
+      TextInput({ placeholder: this.inputStr,text:this.value})
         .type(this.inputType)
         .backgroundColor("#00000000")
         .layoutWeight(1)
+        .onChange(value => {
+          this.value = value;
+          this.onChange?.(value);
+        })
+
+
     }
     .width("85%")
     .padding({ left: 5, right: 10, top: 5, bottom: 5 })
