@@ -22,7 +22,7 @@ struct Login {
   private context:common.UIAbilityContext = getContext() as common.UIAbilityContext;
 
   async  aboutToAppear() {
-    if (!await checkToken(this.context)){
+    if (await checkToken(this.context)){
       router.replace({
         url:"pages/Index"
       })
@@ -111,13 +111,16 @@ struct Login {
             let api = new Api();
             let sendData: sendData = {"phone" : this.phoneNumber,"password" : this.password}
             let result = JSON.parse(await api.POST("/api/auth/login",sendData)) as loginResult;
-                await setToken(this.context, result.data.token);
-                let token = await getToken(this.context);
-                console.log(token);
-                prompt.showToast({
-                  message:"登录成功！，token: " + token,
-                  duration:6000
-                })
+            await setToken(this.context, result.data.token);
+            let token = await getToken(this.context);
+            console.log(token);
+            prompt.showToast({
+              message:"登录成功！，token: " + token,
+              duration:6000
+            })
+            router.replace({
+              url:"pages/Index"
+            })
 
           }else {
             prompt.showToast({
