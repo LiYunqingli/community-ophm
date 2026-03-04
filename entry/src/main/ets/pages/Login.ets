@@ -138,12 +138,22 @@ struct Login {
         Text(" 《用户服务协议》 ")
           .fontSize(11)
           .fontColor("#007aff")
+          .onClick(() => {
+            prompt.showToast({
+              message:"这是用户服务协议"
+            })
+          })
         Text("和")
           .fontSize(11)
           .fontColor(Color.Gray)
         Text(" 《隐私协议》 ")
           .fontSize(11)
           .fontColor("#007aff")
+          .onClick(() => {
+            prompt.showToast({
+              message:"这是用户隐私协议"
+            })
+          })
       }
       .margin({top:20})
 
@@ -235,5 +245,11 @@ struct Icon {
         .margin({top:10})
     }
     .width("100%")
+    .onClick(() => {
+      prompt.showToast({
+        message:this.str,
+        duration:3000
+      })
+    })
   }
 }
