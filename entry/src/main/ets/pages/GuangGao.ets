@@ -9,6 +9,7 @@ struct GuangGao {
   @State djs:number = 5;
   @State develop:boolean = false;
   @State url:string  = "pages/Login"
+  @State a:number = 0
 
   private context:common.UIAbilityContext = getContext() as common.UIAbilityContext
   async  aboutToAppear() {
@@ -22,10 +23,10 @@ struct GuangGao {
       console.log("未登录");
     }
 
-    let a = setInterval(() => {
+    this.a = setInterval(() => {
       this.djs = this.djs - 1;
       if (this.djs <= 0) {
-        clearInterval(a);
+        clearInterval(this.a);
         router.replaceUrl({
           url:this.url
         })
@@ -48,6 +49,8 @@ struct GuangGao {
             .margin(0)
             .fontSize(15)
             .onClick(() => {
+              // 清除定时器，因为页面跳转了循环还在执行，如果用户在剩余秒数内打开了其他(非主页)页面，倒计时为0同样会跳转回主页
+              clearInterval(this.a);
               router.replaceUrl({
                 url:this.url
               })
