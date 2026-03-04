@@ -8,7 +8,7 @@ private context:common.UIAbilityContext = getContext() as common.UIAbilityContex
   build() {
     Column(){
       Text("首页")
-      Button("删除token")
+      Button("退出登录测试")
         .onClick(() => {
           removeToken(this.context)
         })
