@@ -1,10 +1,20 @@
 import { prompt } from '@kit.ArkUI';
+import { http } from '@kit.NetworkKit';
+import { JSON } from '@kit.ArkTS';
+import { setToken, getToken } from '../util/Token'
+import { common } from '@kit.AbilityKit';
+
+
+interface loginData { name: string;phone: string;token: string; userId: string; }
+interface loginResult{ code:number, message:string, data: loginData; }
 
 @Entry
 @Component
 struct Login {
   @State phoneNumber:string = "13392692575";
   @State password:string = "fdsafdsa";
+  private context:common.UIAbilityContext = getContext() as common.UIAbilityContext;
+
   build() {
     Column(){
       Text("欢迎登录")
@@ -56,8 +66,34 @@ struct Login {
         .width("85%")
         .padding(13)
         .margin({top:30})
-        .onClick(() => {
+        .onClick(async () => {
           if (this.phoneNumber && this.password) {
+            let httpRequest = http.createHttp();
+            try {
+              let response = await httpRequest.request("http://115.190.244.152:9999/api/auth/login",{
+                method:http.RequestMethod.POST,
+                header:{
+                  "Content-Type":"application/json"
+                },
+                extraData:{
+                  "phone" : this.phoneNumber,
+                  "password" : this.password
+                }
+              });
+              if (response.responseCode == 200) {
+                let result = JSON.parse(response.result.toString()) as loginResult
+                await setToken(this.context, result.data.token);
+                let token = await getToken(this.context);
+                console.log(token);
+                prompt.showToast({
+                  message:"登录成功！，token: " + token,
+                  duration:6000
+                })
+
+              }
+            } catch (err) {
+              console.error("请求失败：" + JSON.stringify(err))
+            }
 
           }else {
             prompt.showToast({
