@@ -2,6 +2,7 @@
   "src": [
     "pages/GuangGao",
     "pages/Login",
-    "pages/Index"
+    "pages/Index",
+    "pages/Register"
   ]
 }
