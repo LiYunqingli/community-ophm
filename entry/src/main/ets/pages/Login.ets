@@ -67,10 +67,20 @@ struct Login {
         Text("快速注册")
           .fontColor("#007aff")
           .fontSize(13)
+          .onClick(() => {
+            router.push({
+              url:"pages/Register"
+            })
+          })
 
         Text("忘记密码")
           .fontColor("#007aff")
           .fontSize(13)
+          .onClick(() => {
+            prompt.showToast({
+              message: "忘记密码功能还没做"
+            })
+          })
       }
       .width("85%")
       .margin({top:30})
