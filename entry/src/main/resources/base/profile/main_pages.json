@@ -1,6 +1,7 @@
 {
   "src": [
     "pages/GuangGao",
-    "pages/Login"
+    "pages/Login",
+    "pages/Index"
   ]
 }
