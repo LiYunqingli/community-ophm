@@ -1,7 +1,7 @@
-import { prompt } from '@kit.ArkUI';
+import { prompt, router } from '@kit.ArkUI';
 import { http } from '@kit.NetworkKit';
 import { JSON } from '@kit.ArkTS';
-import { setToken, getToken } from '../util/Token'
+import { setToken, getToken, checkToken } from '../util/Token'
 import { common } from '@kit.AbilityKit';
 import { Api } from '../util/Api';
 
@@ -21,6 +21,13 @@ struct Login {
   @State password:string = "fdsafdsa";
   private context:common.UIAbilityContext = getContext() as common.UIAbilityContext;
 
+  async  aboutToAppear() {
+    if (!await checkToken(this.context)){
+      router.replace({
+        url:"pages/Index"
+      })
+    }
+  }
 
   build() {
     Column(){
