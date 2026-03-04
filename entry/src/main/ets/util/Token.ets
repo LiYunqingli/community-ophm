@@ -12,3 +12,11 @@ export async function getToken(context:common.UIAbilityContext){
   let token = await a.get('token', '') as string;
   return token;
 }
+
+export async function checkToken(context:common.UIAbilityContext){
+  if (await getToken(context)) {
+    return true;
+  }else {
+    return false;
+  }
+}
