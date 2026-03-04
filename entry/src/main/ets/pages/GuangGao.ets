@@ -1,14 +1,25 @@
 import '@ohos.router';
 import router from '@ohos.router';
+import { common } from '@kit.AbilityKit';
+import { checkToken } from '../util/Token';
 
 @Entry
 @Component
 struct GuangGao {
   @State djs:number = 5;
   @State develop:boolean = false;
-  aboutToAppear(): void {
+  @State url:string  = "pages/Login"
+
+  private context:common.UIAbilityContext = getContext() as common.UIAbilityContext
+  async  aboutToAppear() {
     if (this.develop){
       this.djs = 0;
+    }
+    if (await checkToken(this.context)){
+      console.log("已登录");
+      this.url = "pages/Index"
+    }else {
+      console.log("未登录");
     }
 
     let a = setInterval(() => {
@@ -16,7 +27,7 @@ struct GuangGao {
       if (this.djs <= 0) {
         clearInterval(a);
         router.replaceUrl({
-          url:"pages/Login"
+          url:this.url
         })
       }
     },1000)
@@ -38,7 +49,7 @@ struct GuangGao {
             .fontSize(15)
             .onClick(() => {
               router.replaceUrl({
-                url:"pages/Login"
+                url:this.url
               })
             })
         }
